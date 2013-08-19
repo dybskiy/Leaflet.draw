@@ -134,6 +134,10 @@
 	background-position: -92px -2px;
 }
 
+.leaflet-draw-toolbar .leaflet-draw-draw-ellipse {
+	background-size: 280px 27px;
+}
+
 .leaflet-draw-toolbar .leaflet-draw-draw-marker {
 	background-position: -122px -2px;
 }
