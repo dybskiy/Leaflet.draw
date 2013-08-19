@@ -16,6 +16,7 @@ L.drawLocal = {
 				polygon: 'Draw a polygon',
 				rectangle: 'Draw a rectangle',
 				circle: 'Draw a circle',
+				ellipse: 'Draw an ellipse',
 				marker: 'Draw a marker'
 			}
 		},
@@ -23,6 +24,11 @@ L.drawLocal = {
 			circle: {
 				tooltip: {
 					start: 'Click and drag to draw circle.'
+				}
+			},
+			ellipse: {
+				tooltip: {
+					start: 'Click and drag to draw ellipse.'
 				}
 			},
 			marker: {

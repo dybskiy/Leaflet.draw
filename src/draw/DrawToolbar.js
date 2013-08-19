@@ -5,6 +5,7 @@ L.DrawToolbar = L.Toolbar.extend({
 		polygon: {},
 		rectangle: {},
 		circle: {},
+		ellipse: {},
 		marker: {}
 	},
 
@@ -66,6 +67,16 @@ L.DrawToolbar = L.Toolbar.extend({
 				buttonIndex++,
 				buttonClassPrefix,
 				L.drawLocal.draw.toolbar.buttons.circle
+			);
+		}
+
+		if (this.options.ellipse) {
+			this._initModeHandler(
+				new L.Draw.Ellipse(map, this.options.ellipse),
+				this._toolbarContainer,
+				buttonIndex++,
+				buttonClassPrefix,
+				L.drawLocal.draw.toolbar.buttons.ellipse
 			);
 		}
 
