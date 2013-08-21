@@ -3,12 +3,12 @@
  */
 
 L.Ellipse = L.Path.extend({
-  initialize: function (latlng, radiusX, radiusY, options) {
+  initialize: function (latlng, radii, options) {
     L.Path.prototype.initialize.call(this, options);
 
     this._latlng = L.latLng(latlng);
-    this._mRadiusX = radiusX;
-    this._mRadiusY = radiusY;
+    this._mRadiusX = radii.x;
+    this._mRadiusY = radii.y;
   },
 
   options: {
@@ -20,9 +20,9 @@ L.Ellipse = L.Path.extend({
     return this.redraw();
   },
 
-  setRadius: function (radiusX, radiusY) {
-    this._mRadiusX = radiusX;
-    this._mRadiusY = radiusY;
+  setRadius: function (radii) {
+    this._mRadiusX = radii.x;
+    this._mRadiusY = radii.y;
     return this.redraw();
   },
 
@@ -32,12 +32,12 @@ L.Ellipse = L.Path.extend({
         pointLeft = this._map.latLngToLayerPoint([latlng.lat, latlng.lng - lngRadius]);
 
     this._point = this._map.latLngToLayerPoint(latlng);
-    this._radius = Math.max(this._point.x - pointLeft.x, 1);
+    this._radiusX = Math.max(this._point.x - pointLeft.x, 1);
   },
 
   getBounds: function () {
     var lngRadius = this._getLngRadius(),
-        latRadius = (this._mRadius / 40075017) * 360,
+        latRadius = (this._mRadiusY / 40075017) * 360,
         latlng = this._latlng;
 
     return new L.LatLngBounds(
@@ -59,7 +59,7 @@ L.Ellipse = L.Path.extend({
     }
 
     if (L.Browser.svg) {
-      return 'M' + p.x + ',' + (p.y - r) +
+      return 'M' + p.x + ',' + (p.y - ry) +
              'A' + rx + ',' + ry + ',0,1,1,' +
              (p.x - 0.1) + ',' + (p.y - ry) + ' z';
     } else {
@@ -70,13 +70,13 @@ L.Ellipse = L.Path.extend({
   },
 
   getRadius: function () {
-    return this._mRadius;
+    return new L.point(this._mRadiusX, this._mRadiusY);
   },
 
   // TODO Earth hardcoded, move into projection code!
 
   _getLatRadius: function () {
-    return (this._mRadius / 40075017) * 360;
+    return (this._mRadiusY / 40075017) * 360;
   },
 
   _getLngRadius: function () {
@@ -88,7 +88,7 @@ L.Ellipse = L.Path.extend({
       return false;
     }
     var vp = this._map._pathViewport,
-        r = this._radius,
+        r = this._radiusX,
         p = this._point;
 
     return p.x - r > vp.max.x || p.y - r > vp.max.y ||
@@ -96,6 +96,6 @@ L.Ellipse = L.Path.extend({
   }
 });
 
-L.ellipse = function (latlng, radius, options) {
-  return new L.Ellipse(latlng, radius, options);
+L.ellipse = function (latlng, radiusX, radiusY, options) {
+  return new L.Ellipse(latlng, radiusX, radiusY, options);
 };

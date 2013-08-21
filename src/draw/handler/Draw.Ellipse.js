@@ -26,11 +26,15 @@ L.Draw.Ellipse = L.Draw.SimpleShape.extend({
   _initialLabelText: L.drawLocal.draw.handlers.ellipse.tooltip.start,
 
   _drawShape: function (latlng) {
+    var destinationPoint = this._map.project(latlng);
+    var centerPoint =  this._map.project(this._startLatLng);
+    var radii = centerPoint.subtract(destinationPoint);
+
     if (!this._shape) {
-      this._shape = new L.Ellipse(this._startLatLng, this._startLatLng.distanceTo(latlng), this.options.shapeOptions);
+      this._shape = new L.Ellipse(this._startLatLng, radii , this.options.shapeOptions);
       this._map.addLayer(this._shape);
     } else {
-      this._shape.setRadius(this._startLatLng.distanceTo(latlng));
+      this._shape.setRadius(radii);
     }
   },
 
