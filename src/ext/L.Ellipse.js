@@ -3,11 +3,12 @@
  */
 
 L.Ellipse = L.Path.extend({
-  initialize: function (latlng, radius, options) {
+  initialize: function (latlng, radiusX, radiusY, options) {
     L.Path.prototype.initialize.call(this, options);
 
     this._latlng = L.latLng(latlng);
-    this._mRadius = radius;
+    this._mRadiusX = radiusX;
+    this._mRadiusY = radiusY;
   },
 
   options: {
@@ -19,8 +20,9 @@ L.Ellipse = L.Path.extend({
     return this.redraw();
   },
 
-  setRadius: function (radius) {
-    this._mRadius = radius;
+  setRadius: function (radiusX, radiusY) {
+    this._mRadiusX = radiusX;
+    this._mRadiusY = radiusY;
     return this.redraw();
   },
 
@@ -49,7 +51,8 @@ L.Ellipse = L.Path.extend({
 
   getPathString: function () {
     var p = this._point,
-        r = this._radius;
+        rx = this._radiusX,
+        ry = this._radiusY;
 
     if (this._checkIfEmpty()) {
       return '';
@@ -57,12 +60,12 @@ L.Ellipse = L.Path.extend({
 
     if (L.Browser.svg) {
       return 'M' + p.x + ',' + (p.y - r) +
-             'A' + r + ',' + r + ',0,1,1,' +
-             (p.x - 0.1) + ',' + (p.y - r) + ' z';
+             'A' + rx + ',' + ry + ',0,1,1,' +
+             (p.x - 0.1) + ',' + (p.y - ry) + ' z';
     } else {
       p._round();
       r = Math.round(r);
-      return 'AL ' + p.x + ',' + p.y + ' ' + r + ',' + r + ' 0,' + (65535 * 360);
+      return 'AL ' + p.x + ',' + p.y + ' ' + rx + ',' + ry + ' 0,' + (65535 * 360);
     }
   },
 
