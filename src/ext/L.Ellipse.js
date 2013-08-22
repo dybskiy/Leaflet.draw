@@ -36,7 +36,6 @@ L.Ellipse = L.Path.extend({
     this._point = this._map.latLngToLayerPoint(latlng);
     this._radiusX = Math.max(this._point.x - pointLeft.x, 1);
     this._radiusY = Math.max(pointBelow.y - this._point.y, 1);
-    console.log(this);
   },
 
   getBounds: function () {

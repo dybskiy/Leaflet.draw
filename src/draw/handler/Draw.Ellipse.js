@@ -52,11 +52,11 @@ L.Draw.Ellipse = L.Draw.SimpleShape.extend({
       this._drawShape(latlng);
 
       // Get the new radius (rouded to 1 dp)
-      radius = this._shape.getRadius().toFixed(1);
+      radius = this._shape.getRadius();
 
       this._tooltip.updateContent({
         text: 'Release mouse to finish drawing.',
-        subtext: 'Radius: ' + radius + ' m'
+        subtext: 'Radius: [' + radius.x.toFixed(1)+ ', ' + radius.y.toFixed(1) + '] m'
       });
     }
   }
