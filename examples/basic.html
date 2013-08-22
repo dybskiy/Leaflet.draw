@@ -110,7 +110,9 @@
 			drawControl.setDrawingOptions({ rectangle: { shapeOptions: { color: '#004a80' } } });
 		};
 
-		new L.Ellipse(map.getCenter(), new L.point(100, 500)).addTo(map);
+		new L.Ellipse(map.getCenter(), new L.point(500, 100)).addTo(map);
+		new L.Ellipse(map.getCenter(), new L.point(200, 100)).addTo(map);
+		new L.Ellipse(map.getCenter(), new L.point(100, 200)).addTo(map);
 
 	</script>
 </body>
