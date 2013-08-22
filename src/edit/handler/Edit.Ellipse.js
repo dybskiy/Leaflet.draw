@@ -17,7 +17,7 @@ L.Edit.Ellipse = L.Edit.SimpleShape.extend({
 
 	_getResizeMarkerPoint: function (latlng) {
 		// From L.shape.getBounds()
-		var delta = this._shape._radius * Math.cos(Math.PI / 4),
+		var delta = this._shape._radiusX * Math.cos(Math.PI / 4),
 			point = this._map.project(latlng);
 		return this._map.unproject([point.x + delta, point.y - delta]);
 	},
@@ -34,9 +34,11 @@ L.Edit.Ellipse = L.Edit.SimpleShape.extend({
 
 	_resize: function (latlng) {
 		var moveLatLng = this._moveMarker.getLatLng(),
-			radius = moveLatLng.distanceTo(latlng);
+				rx = moveLatLng.distanceTo([moveLatLng.lat, latlng.lng]),
+        ry = moveLatLng.distanceTo([latlng.lat, moveLatLng.lng]),
+        radii = L.point(rx, ry);
 
-		this._shape.setRadius(radius);
+		this._shape.setRadius(radii);
 	}
 });
 
