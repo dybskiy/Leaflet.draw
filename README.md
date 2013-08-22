@@ -128,6 +128,22 @@ Triggered when the user has finshed a particular vector or marker.
 | --- | --- | ---
 | layerType | String | The type of layer this is. One of: `polyline`, `polygon`, `rectangle`, `circle`, `marker`
 
+#### draw:editstart
+
+Triggered when the user starts edit mode by clicking the edit or remove tool button.
+
+| Property | Type | Description
+| --- | --- | ---
+| handler | String | The type of edit this is. One of: `edit`, `remove`
+
+#### draw:editstop
+
+Triggered when the user has finshed editing (edit or remove mode) and saves edits.
+
+| Property | Type | Description
+| --- | --- | ---
+| handler | String | The type of edit this is. One of: `edit`, `remove`
+
 <a name="options" />
 ## Advanced options
 
@@ -173,6 +189,7 @@ Polyline and Polygon drawing handlers take the same options.
 | shapeOptions | [Leaflet Polyline options](http://leafletjs.com/reference.html#polyline-options) | [See code](https://github.com/Leaflet/Leaflet.draw/blob/master/src/draw/handler/Draw.Polyline.js#L20) | The options used when drawing the polyline/polygon on the map.
 | metric | Bool | `true` | Determines which measurement system (metric or imperial) is used.
 | zIndexOffset | Number | `2000` | This should be a high number to ensure that you can draw over all other layers on the map.
+| repeatMode | Bool | `false` | Determines if the draw tool remains enabled after drawing a shape.
 
 <a name="polygonoptions" />
 #### PolygonOptions
@@ -189,6 +206,7 @@ Polygon options include all of the Polyline options plus the option to show the 
 | Option | Type | Default | Description
 | --- | --- | --- | ---
 | shapeOptions | [Leaflet Path options](http://leafletjs.com/reference.html#path-options) | [See code](https://github.com/Leaflet/Leaflet.draw/blob/master/src/draw/handler/Draw.Rectangle.js#L7) | The options used when drawing the rectangle on the map.
+| repeatMode | Bool | `false` | Determines if the draw tool remains enabled after drawing a shape.
 
 <a name="circleoptions" />
 #### CircleOptions
@@ -196,6 +214,7 @@ Polygon options include all of the Polyline options plus the option to show the 
 | Option | Type | Default | Description
 | --- | --- | --- | ---
 | shapeOptions | [Leaflet Path options](http://leafletjs.com/reference.html#path-options) | [See code](https://github.com/Leaflet/Leaflet.draw/blob/master/src/draw/handler/Draw.Circle.js#L7) | The options used when drawing the circle on the map. 
+| repeatMode | Bool | `false` | Determines if the draw tool remains enabled after drawing a shape.
 
 <a name="markeroptions" />
 #### MarkerOptions
@@ -204,6 +223,7 @@ Polygon options include all of the Polyline options plus the option to show the 
 | --- | --- | --- | ---
 | icon | [Leaflet Icon](http://leafletjs.com/reference.html#icon) | `L.Icon.Default()` | The icon displayed when drawing a marker.
 | zIndexOffset | Number | `2000` | This should be a high number to ensure that you can draw over all other layers on the map.
+| repeatMode | Bool | `false` | Determines if the draw tool remains enabled after drawing a shape.
 
 <a name="editoptions" />
 ### EditOptions
