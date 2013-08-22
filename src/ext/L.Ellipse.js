@@ -28,12 +28,15 @@ L.Ellipse = L.Path.extend({
 
   projectLatlngs: function () {
     var lngRadius = this._getLngRadius(),
+        latRadius = this._getLatRadius(),
         latlng = this._latlng,
-        pointLeft = this._map.latLngToLayerPoint([latlng.lat, latlng.lng - lngRadius]);
+        pointLeft = this._map.latLngToLayerPoint([latlng.lat, latlng.lng - lngRadius]),
+        pointBelow = this._map.latLngToLayerPoint([latlng.lat - latRadius, latlng.lng])
 
     this._point = this._map.latLngToLayerPoint(latlng);
     this._radiusX = Math.max(this._point.x - pointLeft.x, 1);
-    this._radiusY = Math.max(this._point.y, 1);
+    this._radiusY = Math.max(pointBelow.y - this._point.y, 1);
+    console.log(this);
   },
 
   getBounds: function () {
@@ -81,7 +84,7 @@ L.Ellipse = L.Path.extend({
   },
 
   _getLngRadius: function () {
-    return this._getLatRadius() / Math.cos(L.LatLng.DEG_TO_RAD * this._latlng.lat);
+    return ((this._mRadiusX / 40075017) * 360) / Math.cos(L.LatLng.DEG_TO_RAD * this._latlng.lat);
   },
 
   _checkIfEmpty: function () {
