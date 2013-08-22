@@ -26,10 +26,8 @@ L.Draw.Ellipse = L.Draw.SimpleShape.extend({
   _initialLabelText: L.drawLocal.draw.handlers.ellipse.tooltip.start,
 
   _drawShape: function (latlng) {
-    console.log(latlng);
-
-    var rx = this._startLatLng.distanceTo(L.point(latlng.lat, this._startLatLng.lng)),
-        ry = this._startLatLng.distanceTo(L.point(this._startLatLng.lat, latlng.lng)),
+    var rx = this._startLatLng.distanceTo([this._startLatLng.lat, latlng.lng]),
+        ry = this._startLatLng.distanceTo([latlng.lat, this._startLatLng.lng]),
         radii = L.point(rx, ry);
 
     if (!this._shape) {
@@ -38,15 +36,6 @@ L.Draw.Ellipse = L.Draw.SimpleShape.extend({
     } else {
       this._shape.setRadius(radii);
     }
-
-
-    // if (!this._shape) {
-    //   this._shape = new L.Circle(this._startLatLng, this._startLatLng.distanceTo(latlng), this.options.shapeOptions);
-    //   this._map.addLayer(this._shape);
-    // } else {
-    //   this._shape.setRadius(this._startLatLng.distanceTo(latlng));
-    // }
-
   },
 
   _fireCreatedEvent: function () {
