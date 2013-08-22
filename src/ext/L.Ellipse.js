@@ -33,11 +33,12 @@ L.Ellipse = L.Path.extend({
 
     this._point = this._map.latLngToLayerPoint(latlng);
     this._radiusX = Math.max(this._point.x - pointLeft.x, 1);
+    this._radiusY = Math.max(this._point.y, 1);
   },
 
   getBounds: function () {
     var lngRadius = this._getLngRadius(),
-        latRadius = (this._mRadiusY / 40075017) * 360,
+        latRadius = this._getLatRadius(),
         latlng = this._latlng;
 
     return new L.LatLngBounds(
@@ -96,6 +97,6 @@ L.Ellipse = L.Path.extend({
   }
 });
 
-L.ellipse = function (latlng, radiusX, radiusY, options) {
-  return new L.Ellipse(latlng, radiusX, radiusY, options);
+L.ellipse = function (latlng, radii, options) {
+  return new L.Ellipse(latlng, radii, options);
 };
